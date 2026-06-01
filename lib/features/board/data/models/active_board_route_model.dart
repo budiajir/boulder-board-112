@@ -1,4 +1,5 @@
 import '../../../discovery/data/models/climbing_route_model.dart';
+import '../../../../data/models/board_config.dart';
 
 /// Data model mapping 1:1 to the Supabase `active_board_route` table.
 ///
@@ -125,9 +126,8 @@ class ActiveBoardRouteModel {
     final payload = <int>[0x01]; // Command: Turn ON
 
     for (final h in holds) {
-      // If ledIndex is missing, fallback to standard 11x18 mapping
-      // where row 0 is bottom and y is 0 at top.
-      final index = h.ledIndex ?? ((17 - h.y) * 11 + h.x);
+      // Use central HoldPosition helper for dynamic wiring pattern mapping
+      final index = h.ledIndex ?? HoldPosition.calculateLedIndex(h.x, h.y);
       payload.add(index);
 
       // Map holdType to RGB color

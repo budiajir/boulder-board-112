@@ -72,7 +72,12 @@ class ProfileScreen extends ConsumerWidget {
   }
 
   Widget _buildProfileCard(ProfileModel? profile) {
-    final displayName = profile?.displayName ?? profile?.username ?? 'Climber';
+    final hasCustomDisplayName = profile?.displayName != null &&
+        profile?.displayName != 'Climber' &&
+        profile?.displayName != profile?.username;
+    final displayName = hasCustomDisplayName
+        ? profile!.displayName!
+        : (profile?.username ?? 'Climber');
     final sinceYear = profile?.createdAt?.year.toString() ?? DateTime.now().year.toString();
 
     return Column(
@@ -94,6 +99,10 @@ class ProfileScreen extends ConsumerWidget {
         ),
         const SizedBox(height: 12),
         Text(displayName, style: AppTypography.headline),
+        if (hasCustomDisplayName) ...[
+          const SizedBox(height: 2),
+          Text('@${profile!.username}', style: AppTypography.bodySmall.copyWith(color: AppColors.accentPrimary)),
+        ],
         const SizedBox(height: 4),
         Text('Climbing since $sinceYear', style: AppTypography.bodySmall),
       ],

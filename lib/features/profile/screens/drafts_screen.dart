@@ -10,6 +10,7 @@ import '../../editor/screens/route_editor_screen.dart';
 import '../../discovery/presentation/providers/route_list_notifier.dart';
 import '../data/models/draft_route_model.dart';
 import '../presentation/providers/drafts_notifier.dart';
+import '../../../data/models/board_config.dart';
 
 /// Screen listing locally saved draft routes with editing and publishing tools.
 class DraftsScreen extends ConsumerWidget {
@@ -295,7 +296,7 @@ class DraftsScreen extends ConsumerWidget {
 
     final List<int> payload = [0x01]; // Command: Turn ON
     for (final h in draft.holds) {
-      final index = h.ledIndex ?? ((17 - h.y) * 11 + h.x);
+      final index = h.ledIndex ?? HoldPosition.calculateLedIndex(h.x, h.y);
       payload.add(index);
       
       switch (h.holdType) {

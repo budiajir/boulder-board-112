@@ -84,6 +84,37 @@ class HoldPosition {
     required this.label,
   });
 
+  /// Calculate the physical LED index based on grid coordinates (col, row).
+  /// This supports different wiring configurations (Vertical Serpentine, Horizontal Serpentine, etc.).
+  static int calculateLedIndex(int col, int row) {
+    // -------------------------------------------------------------
+    // CONFIGURATION: CHOOSE YOUR WIRING PATTERN HERE
+    // -------------------------------------------------------------
+    
+    // PATTERN A: Vertical Serpentine / Zig-zag (Standard Moonboard style, starting from A1)
+    // - Column A (col 0) goes UP: index 0 to 17
+    // - Column B (col 1) goes DOWN: index 18 to 35
+    // - Column C (col 2) goes UP: index 36 to 53
+    // This matches the vertical daisy-chain pattern shown in your image!
+    if (col % 2 == 0) {
+      return col * 18 + row;
+    } else {
+      return col * 18 + (17 - row);
+    }
+
+    // PATTERN B: Horizontal Serpentine / Zig-zag (starting from A1)
+    /*
+    if (row % 2 == 0) {
+      return row * 11 + col;
+    } else {
+      return row * 11 + (10 - col);
+    }
+    */
+
+    // PATTERN C: Horizontal Raster (Row-by-row, top-to-bottom starting from A18)
+    // return (17 - row) * 11 + col;
+  }
+
   /// Unique ID mapping to the physical LED.
   final int id;
 

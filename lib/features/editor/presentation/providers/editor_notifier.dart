@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../data/models/board_config.dart';
 import '../../../../core/constants/hold_types.dart';
 import '../../../discovery/data/models/climbing_route_model.dart';
 import '../../../discovery/data/repositories/route_repository_impl.dart';
@@ -131,7 +132,7 @@ class EditorNotifier extends Notifier<EditorState> {
       grade: state.routeGrade,
       holds: holds,
       setterId: user?.id,
-      setterName: user?.userMetadata?['display_name'] ?? 'Anonymous',
+      setterName: user?.userMetadata?['username'] ?? user?.userMetadata?['display_name'] ?? user?.email?.split('@')[0] ?? 'Anonymous',
       angle: state.routeAngle,
       description: state.routeDescription,
       isDraft: false,
@@ -158,7 +159,7 @@ class EditorNotifier extends Notifier<EditorState> {
         (t) => t.name == h.holdType,
         orElse: () => HoldType.hand,
       );
-      final holdId = h.ledIndex ?? (h.y * 11 + h.x);
+      final holdId = h.y * 11 + h.x;
       selectedHolds[holdId] = type;
     }
 
@@ -183,9 +184,13 @@ class EditorNotifier extends Notifier<EditorState> {
       } else {
         final List<int> payload = [0x01]; // Command: Turn ON
         
-        // Add each selected hold to the payload using high-saturation pure colors
+        // Add each selected hold to the payload mapped using HoldPosition.calculateLedIndex
         state.selectedHolds.forEach((holdId, type) {
-          payload.add(holdId);
+          final col = holdId % 11;
+          final row = holdId ~/ 11;
+          final index = HoldPosition.calculateLedIndex(col, row);
+          
+          payload.add(index);
           switch (type) {
             case HoldType.start:
               payload.addAll([0, 255, 0]); // Pure Green
