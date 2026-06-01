@@ -37,7 +37,7 @@ class RouteHoldEntry {
   static const Map<String, String> defaultColors = {
     'start':  '#00FF66', // Green
     'hand':   '#3B82F6', // Blue
-    'foot':   '#FACC15', // Yellow
+    'foot':   '#F97316', // Orange
     'finish': '#EF4444', // Red
   };
 

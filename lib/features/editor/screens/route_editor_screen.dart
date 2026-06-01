@@ -164,7 +164,7 @@ class RouteEditorScreen extends ConsumerWidget {
           const SizedBox(width: 8),
           _countChip('🔵', editorState.handCount, AppColors.holdHand),
           const SizedBox(width: 8),
-          _countChip('🟡', editorState.footCount, AppColors.holdFoot),
+          _countChip('🟠', editorState.footCount, AppColors.holdFoot),
           const SizedBox(width: 8),
           _countChip('🔴', editorState.finishCount, AppColors.holdFinish),
           const Spacer(),

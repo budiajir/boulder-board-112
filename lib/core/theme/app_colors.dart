@@ -23,6 +23,7 @@ class AppColors {
   static const Color accentYellow = Color(0xFFD29922);
   static const Color accentRed = Color(0xFFF85149);
   static const Color accentLime = Color(0xFFA8FF3E);
+  static const Color accentOrange = Color(0xFFF97316);
 
   // ─── Gradient ───────────────────────────────────────────
   static const Color gradientStart = Color(0xFF0D1117);
@@ -31,7 +32,7 @@ class AppColors {
   // ─── Hold Colors (semantic) ─────────────────────────────
   static const Color holdStart = accentGreen;
   static const Color holdHand = accentBlue;
-  static const Color holdFoot = accentYellow;
+  static const Color holdFoot = accentOrange;
   static const Color holdFinish = accentRed;
   static const Color holdInactive = Color(0xFF30363D);
 
