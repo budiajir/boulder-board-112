@@ -8,7 +8,6 @@ import '../../../core/widgets/star_rating.dart';
 import '../data/models/climbing_route_model.dart';
 import '../presentation/providers/route_list_notifier.dart';
 import '../../profile/presentation/providers/favorites_notifier.dart';
-import '../../ble/presentation/providers/ble_notifier.dart';
 import 'route_detail_screen.dart';
 
 /// Main discovery screen showing filterable/sortable route list.
@@ -49,14 +48,13 @@ class _RouteListScreenState extends ConsumerState<RouteListScreen> {
   }
 
   Widget _buildHeader(BuildContext context) {
-    final bleState = ref.watch(bleProvider);
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text('Discover', style: AppTypography.display),
-          BleStatusIndicator(isConnected: bleState.isConnected, showLabel: true),
+          const BleStatusIndicator(isConnected: true, showLabel: true),
         ],
       ),
     );
@@ -154,7 +152,7 @@ class _RouteListScreenState extends ConsumerState<RouteListScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.search_off, size: 48, color: AppColors.textTertiary),
+                const Icon(Icons.search_off, size: 48, color: AppColors.textTertiary),
                 const SizedBox(height: 12),
                 Text('No routes found', style: AppTypography.subtitle),
               ],

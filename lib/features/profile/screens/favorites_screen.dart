@@ -55,7 +55,7 @@ class _FavoritesScreenState extends ConsumerState<FavoritesScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.favorite_border, size: 48, color: AppColors.textTertiary),
+                const Icon(Icons.favorite_border, size: 48, color: AppColors.textTertiary),
                 const SizedBox(height: 12),
                 Text("You haven't saved any routes yet.", style: AppTypography.subtitle),
               ],

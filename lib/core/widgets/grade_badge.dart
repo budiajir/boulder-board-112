@@ -12,21 +12,67 @@ class GradeBadge extends StatelessWidget {
   final String grade;
   final GradeBadgeSize size;
 
-  Color get _backgroundColor {
+  Gradient get _gradient {
     final num = int.tryParse(grade.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    if (num == 0) return const Color(0xFFE91E63); // Pink
-    if (num <= 2) return const Color(0xFFFFFFFF); // White
-    if (num <= 4) return const Color(0xFFFFEB3B); // Yellow
-    if (num <= 6) return const Color(0xFF2196F3); // Blue
-    if (num <= 8) return const Color(0xFF4CAF50); // Green
-    if (num <= 10) return const Color(0xFFF44336); // Red
-    return const Color(0xFF212121); // Black
+    if (num == 0) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFEC4899), Color(0xFFBE185D)], // Pink / Rose
+      );
+    }
+    if (num <= 2) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFF9FAFB), Color(0xFFE5E7EB)], // Cool White / Pearl
+      );
+    }
+    if (num <= 4) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFFBBF24), Color(0xFFD97706)], // Warm Gold / Amber
+      );
+    }
+    if (num <= 6) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF60A5FA), Color(0xFF2563EB)], // Vibrant Blue
+      );
+    }
+    if (num <= 8) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFF34D399), Color(0xFF059669)], // Emerald Green
+      );
+    }
+    if (num <= 10) {
+      return const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFEF4444), Color(0xFFB91C1C)], // Crimson Red
+      );
+    }
+    return const LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [Color(0xFF374151), Color(0xFF111827)], // Dark Onyx
+    );
   }
 
   Color get _textColor {
     final num = int.tryParse(grade.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
-    if (num >= 1 && num <= 4) return Colors.black87; // Black text for White and Yellow
+    if (num >= 1 && num <= 4) return Colors.black87; // Dark text for light backgrounds
     return Colors.white;
+  }
+
+  Color get _borderColor {
+    final num = int.tryParse(grade.replaceAll(RegExp(r'[^0-9]'), '')) ?? 0;
+    if (num >= 1 && num <= 4) return Colors.black12;
+    return Colors.white10;
   }
 
   @override
@@ -36,30 +82,39 @@ class GradeBadge extends StatelessWidget {
 
     switch (size) {
       case GradeBadgeSize.small:
-        fontSize = 12;
-        padding = const EdgeInsets.symmetric(horizontal: 6, vertical: 2);
+        fontSize = 11;
+        padding = const EdgeInsets.symmetric(horizontal: 7, vertical: 2.5);
         break;
       case GradeBadgeSize.medium:
-        fontSize = 16;
-        padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 4);
+        fontSize = 15;
+        padding = const EdgeInsets.symmetric(horizontal: 11, vertical: 4.5);
         break;
       case GradeBadgeSize.large:
-        fontSize = 20;
-        padding = const EdgeInsets.symmetric(horizontal: 14, vertical: 6);
+        fontSize = 19;
+        padding = const EdgeInsets.symmetric(horizontal: 15, vertical: 6.5);
         break;
     }
 
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: _backgroundColor,
-        borderRadius: BorderRadius.circular(6),
+        gradient: _gradient,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: _borderColor, width: 0.8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.15),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Text(
         grade,
         style: AppTypography.gradeBadge.copyWith(
           fontSize: fontSize,
           color: _textColor,
+          letterSpacing: 0.2,
         ),
       ),
     );

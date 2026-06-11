@@ -39,7 +39,7 @@ class _AppRouterState extends State<AppRouter> {
 
   Widget _buildBottomNav() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: AppColors.surfaceVariant,
         border: Border(
           top: BorderSide(color: AppColors.border, width: 0.5),

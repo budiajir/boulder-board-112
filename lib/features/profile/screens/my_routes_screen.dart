@@ -55,7 +55,7 @@ class _MyRoutesScreenState extends ConsumerState<MyRoutesScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.route, size: 48, color: AppColors.textTertiary),
+                const Icon(Icons.route, size: 48, color: AppColors.textTertiary),
                 const SizedBox(height: 12),
                 Text("You haven't created any routes yet.", style: AppTypography.subtitle),
               ],
